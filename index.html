@@ -14,10 +14,26 @@
 body { background-color: #020617; color: #f8fafc; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
 .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); }
 .gradient-text { background: linear-gradient(90deg,#22c55e,#3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+/* TIMER STYLES */
+#timerContainer {
+    background: #ffffff;
+    color: #020617;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    border: 3px solid #22c55e;
+    z-index: 9999;
+}
 </style>
 </head>
 
 <body>
+
+<!-- TIMER -->
+<div id="timerContainer"
+     class="fixed bottom-6 right-6 px-8 py-4 rounded-3xl flex items-center gap-4 transition-all">
+    <i id="timerIcon" class="fas fa-hourglass-start text-green-600 text-2xl"></i>
+    <span id="displayTime" class="text-4xl font-black font-mono tracking-tighter">00:00</span>
+</div>
 
 <!-- NAV -->
 <nav class="fixed w-full z-50 glass border-b border-slate-800/50 px-8 py-4 flex justify-between items-center">
@@ -55,7 +71,6 @@ body { background-color: #020617; color: #f8fafc; font-family: 'Plus Jakarta San
     </p>
 </section>
 
-
 <!-- PROBLEM -->
 <section id="problem" class="grid md:grid-cols-2 gap-12 items-stretch">
     <div class="glass p-10 rounded-[2.5rem] border-l-4 border-green-600">
@@ -88,7 +103,6 @@ body { background-color: #020617; color: #f8fafc; font-family: 'Plus Jakarta San
         </div>
     </div>
 </section>
-
 
 <!-- METHODOLOGY -->
 <section id="methodology" class="space-y-12">
@@ -124,27 +138,22 @@ body { background-color: #020617; color: #f8fafc; font-family: 'Plus Jakarta San
             </h3>
 
             <div class="flex flex-col gap-4 items-center">
-
-                <!-- Live Demo -->
                 <a href="https://fit-wise-seven.vercel.app" target="_blank">
                     <div class="px-6 py-2 bg-blue-600 rounded-full text-[10px] font-black hover:bg-blue-500 transition shadow-lg shadow-blue-900/40 uppercase">
                         Live Demo
                     </div>
                 </a>
 
-                <!-- GitHub Repo -->
                 <a href="https://github.com/Kaavyashah22/FitWise" target="_blank">
                     <div class="px-6 py-2 bg-green-600 rounded-full text-[10px] font-black hover:bg-green-500 transition shadow-lg shadow-green-900/40 uppercase">
                         GitHub Repository
                     </div>
                 </a>
-
             </div>
         </div>
 
     </div>
 </section>
-
 
 <!-- RESULTS -->
 <section id="results" class="glass p-12 rounded-[3.5rem] border-t-4 border-green-500">
@@ -175,7 +184,6 @@ body { background-color: #020617; color: #f8fafc; font-family: 'Plus Jakarta San
         </div>
     </div>
 </section>
-
 
 <!-- TEAM -->
 <section id="team" class="text-center pt-10 border-t border-slate-900">
@@ -221,6 +229,19 @@ body { background-color: #020617; color: #f8fafc; font-family: 'Plus Jakarta San
 </footer>
 
 <script>
+/* TIMER */
+let time = 0;
+function formatTime(seconds) {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+}
+setInterval(() => {
+    time++;
+    document.getElementById("displayTime").textContent = formatTime(time);
+}, 1000);
+
+/* CHART */
 const ctx = document.getElementById('resultsChart').getContext('2d');
 new Chart(ctx, {
     type: 'bar',
